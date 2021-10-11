@@ -1,14 +1,15 @@
+from sys import api_version
 from flask import Flask, request
 import logging
 from time import sleep
 from json import dumps
-from kafka import KafkaProducer
+from kafka import KafkaProducer,errors
 
 app = Flask("__name__")
 
 producer = KafkaProducer(bootstrap_servers=['kafka-0.kafka-headless.default.svc.cluster.local:9092'],
-                        value_serializer=lambda x: 
-                        dumps(x).encode('utf-8'))
+                        value_serializer=lambda x: dumps(x).encode('utf-8'),
+                        api_version=(0,10,1))
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -19,6 +20,7 @@ def hello_world():
     if(msg is not None):
         data = {'message' : msg}
         producer.send('numtest',data)
+        producer.flush()
         logging.info("Done Sending")
     
     # for e in range(10):

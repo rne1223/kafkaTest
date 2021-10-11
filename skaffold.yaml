@@ -18,3 +18,9 @@ deploy:
     - kafka.yaml
     - consumer/deployment.yaml
     - producer/deployment.yaml
+portForward:
+  - resourceType: service
+    resourceName: producer
+    port: 30001
+
+  

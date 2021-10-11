@@ -15,7 +15,8 @@ consumer = KafkaConsumer(
     auto_offset_reset='earliest',
     enable_auto_commit=True,
     group_id='my-group2',
-    value_deserializer=lambda x: loads(x.decode('utf-8')))
+    value_deserializer=lambda x: loads(x.decode('utf-8')),
+    api_version=(0,10,1))
 
 # logger.info("Hello World")
 logging.info("this is a test")
@@ -38,4 +39,4 @@ if "__name__" == "__main__":
     # logger.info("Consumer Started")
 
 #  kafka-console-producer.sh --broker-list kafka-0.kafka-headless.default.svc.cluster.local:9092 --topic numtest 
-#  kafka-console-consumer.sh --bootstrap-server kafka.default.svc.cluster.local:9092 --topic test --from-beginning
+#  kafka-console-consumer.sh --bootstrap-server kafka.default.svc.cluster.local:9092 --topic numtest --from-beginning
