@@ -1,0 +1,20 @@
+apiVersion: skaffold/v2beta24
+kind: Config
+metadata:
+  name: kafkatest
+build:
+  artifacts:
+  - image: consumer
+    context: consumer
+    docker:
+      dockerfile: Dockerfile
+  - image: producer
+    context: producer
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - kafka.yaml
+    - consumer/deployment.yaml
+    - producer/deployment.yaml
