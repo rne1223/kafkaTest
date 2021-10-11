@@ -18,15 +18,11 @@ def hello_world():
     msg = request.args.get('msg')
 
     if(msg is not None):
-        data = {'message' : msg}
-        producer.send('numtest',data)
+        logging.info(msg)
+        data = {"message" : f"{msg}"}
+        producer.send('numtest3',data)
         producer.flush()
-        logging.info("Done Sending")
     
-    # for e in range(10):
-    #     data = {'number' : e}
-    #     producer.send('numtest', value=data)
-    #     sleep(1)
 
     return f"Send message: {msg}" 
 
